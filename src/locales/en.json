@@ -1,0 +1,138 @@
+{
+  "language": {
+    "label": "Language",
+    "switcherAriaLabel": "Select the site language"
+  },
+  "header": {
+    "subtitle": "local browser-side analysis - nothing is sent to a server unless you explicitly run the HIBP check"
+  },
+  "notice": {
+    "title": "Security:",
+    "beforeBrowser": "This tool runs",
+    "browser": "primarily in your browser",
+    "beforeHash": "- no password is sent to a server during local analysis. The only exception is the HIBP check triggered by the button: it sends only the",
+    "hash": "first 5 characters of the SHA-1 hash",
+    "afterHash": "through k-anonymity, never the full password."
+  },
+  "input": {
+    "title": "Password / passphrase input",
+    "placeholder": "type the password or passphrase to analyze...",
+    "ariaLabel": "Password or passphrase to analyze",
+    "show": "Show password",
+    "hide": "Hide password",
+    "scoreLabel": "zxcvbn score"
+  },
+  "entropy": {
+    "title": "Entropy",
+    "theoreticalLabel": "Theoretical entropy (upper bound)",
+    "theoreticalSub": "{{length}} chars x log2({{charsetSize}}) - simplified charset estimate",
+    "effectiveLabel": "Effective entropy (zxcvbn)",
+    "effectiveSub": "log2({{guesses}} guesses) - accounts for real-world patterns",
+    "groupsLabel": "Detected character groups",
+    "unicodeNote": "ⓘ Non-ASCII characters detected: the theoretical charset estimate is approximate and may not reflect the real alphabet being used.",
+    "generalNote": "ⓘ Theoretical entropy is optimistic and should not replace pattern-based evaluation. Prefer effective/conservative entropy for practical decisions.",
+    "placeholder": "↑ enter a password to start the analysis",
+    "groups": {
+      "lower": "a-z",
+      "upper": "A-Z",
+      "digits": "0-9",
+      "space": "spaces",
+      "symbols": "!@#...",
+      "unicode": "Unicode"
+    },
+    "conservativeLabel": "Conservative entropy",
+    "conservativeSub": "min(theoretical, effective): safer estimate for human-chosen passwords"
+  },
+  "crack": {
+    "title": "Estimated crack time",
+    "scenarioLabel": "Scenario",
+    "estimatedTimeLabel": "Estimated time",
+    "average": "avg",
+    "max": "max",
+    "note": "ⓘ Estimate based on {{guesses}} zxcvbn guesses. \"Avg\" assumes success halfway through the search space; \"max\" assumes a full search. These scenarios are indicative, not universal.",
+    "rateHint": "You can edit guesses/sec to better match your real attack scenario.",
+    "rateLabel": "Rate",
+    "rateInputAria": "Guess rate for {{scenario}}",
+    "hardware": {
+      "label": "Hardware profile",
+      "ariaLabel": "Select reference hardware profile",
+      "note": "Profiles are indicative benchmark presets; you can fine-tune rates manually below.",
+      "profiles": {
+        "baseline": {
+          "label": "Consumer baseline (2024)",
+          "description": "Modern consumer laptop/desktop."
+        },
+        "workstation": {
+          "label": "GPU workstation",
+          "description": "Dedicated GPU machine tuned for password cracking."
+        },
+        "datacenter": {
+          "label": "Datacenter cluster",
+          "description": "Distributed high-performance setup (aggressive scenario)."
+        }
+      },
+      "sourceRemote": "Profiles loaded from external API.",
+      "sourceLocal": "Using local fallback profiles.",
+      "remoteError": "Unable to load remote profiles, local fallback enabled."
+    }
+  },
+  "feedback": {
+    "title": "Qualitative analysis (zxcvbn)",
+    "none": "No obvious structural weakness detected by zxcvbn",
+    "predictablePatterns": "Effective entropy is about {{delta}} bits below the theoretical estimate: predictable patterns or common words are present",
+    "leadingTrailingSpaces": "The password starts or ends with spaces: verify that this is intentional"
+  },
+  "hibp": {
+    "title": "Have I Been Pwned - breach check",
+    "button": "Check breach",
+    "idle": "Enter a password and then press the button",
+    "reset": "Password changed: run the breach check again",
+    "checking": "Computing SHA-1 and querying HIBP...",
+    "safe": "✓ Not found in the HIBP dataset",
+    "found": "⚠ Found {{occurrences}} times - change this password now",
+    "error": "Error: {{message}} - network unavailable or service unreachable",
+    "noteLine1": "ⓘ Uses k-anonymity: only SHA1[0:5] is sent to api.pwnedpasswords.com - the password never leaves the browser.",
+    "noteLine2": "Online request may leak metadata (e.g. IP/timing). Run only if you accept this tradeoff.",
+    "consent": "I confirm the online HIBP check (hash prefix only, never full password).",
+    "errors": {
+      "network": "Network unavailable. Check your connection and retry.",
+      "serviceUnavailable": "HIBP service is temporarily unavailable. Try again later.",
+      "rateLimited": "You reached a temporary request limit. Wait and retry.",
+      "cryptoUnavailable": "Web Crypto is unavailable in this browser.",
+      "unknown": "Unexpected error while checking HIBP."
+    }
+  },
+  "footer": {
+    "telemetry": "no logs, no app telemetry"
+  },
+  "scenarios": {
+    "online_throttled": {
+      "label": "Rate-limited online",
+      "desc": "Login protected by rate limits, CAPTCHA, or lockout",
+      "unit": "100/sec"
+    },
+    "slow_hash": {
+      "label": "Slow offline hash",
+      "desc": "bcrypt / Argon2 / scrypt - intentionally expensive KDF",
+      "unit": "10K/sec"
+    },
+    "fast_hash": {
+      "label": "Fast offline hash",
+      "desc": "Fast hashes or poorly protected leaks",
+      "unit": "10G/sec"
+    }
+  },
+  "scores": {
+    "0": "Very weak",
+    "1": "Weak",
+    "2": "Fair",
+    "3": "Good",
+    "4": "Excellent"
+  },
+  "analysisContext": {
+    "title": "Local analysis context",
+    "description": "Words related to you (name, company, product, slang) make estimates more realistic.",
+    "placeholder": "e.g. mario, acme, london, team, brand... (comma separated)",
+    "ariaLabel": "Context words comma separated"
+  }
+}
