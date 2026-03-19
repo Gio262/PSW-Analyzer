@@ -1,0 +1,138 @@
+{
+  "language": {
+    "label": "Lingua",
+    "switcherAriaLabel": "Seleziona la lingua del sito"
+  },
+  "header": {
+    "subtitle": "analisi locale nel browser - nessun invio al server salvo check HIBP esplicito"
+  },
+  "notice": {
+    "title": "Sicurezza:",
+    "beforeBrowser": "Questo tool gira",
+    "browser": "principalmente nel tuo browser",
+    "beforeHash": "- nessuna password viene inviata a un server durante l'analisi locale. L'unica eccezione è il check HIBP attivato dal pulsante: invia solo i",
+    "hash": "primi 5 caratteri dell'hash SHA-1",
+    "afterHash": "tramite k-anonymity, mai la password completa."
+  },
+  "input": {
+    "title": "Input password / passphrase",
+    "placeholder": "digita password o passphrase da analizzare...",
+    "ariaLabel": "Password o passphrase da analizzare",
+    "show": "Mostra password",
+    "hide": "Nascondi password",
+    "scoreLabel": "Score zxcvbn"
+  },
+  "entropy": {
+    "title": "Entropia",
+    "theoreticalLabel": "Entropia teorica (upper bound)",
+    "theoreticalSub": "{{length}} char x log2({{charsetSize}}) - stima semplificata su charset",
+    "effectiveLabel": "Entropia effettiva (zxcvbn)",
+    "effectiveSub": "log2({{guesses}} guess) - considera pattern reali",
+    "groupsLabel": "Gruppi di caratteri rilevati",
+    "unicodeNote": "ⓘ Sono presenti caratteri non ASCII: la stima teorica del charset è approssimata e potrebbe non riflettere bene l'alfabeto reale usato.",
+    "generalNote": "ⓘ L'entropia teorica è una stima ottimistica e non sostituisce la valutazione pattern-based. Usa soprattutto il valore effettivo/conservativo per decisioni pratiche.",
+    "placeholder": "↑ inserisci una password per iniziare l'analisi",
+    "groups": {
+      "lower": "a-z",
+      "upper": "A-Z",
+      "digits": "0-9",
+      "space": "spazi",
+      "symbols": "!@#...",
+      "unicode": "Unicode"
+    },
+    "conservativeLabel": "Entropia conservativa",
+    "conservativeSub": "min(teorica, effettiva): stima più prudente per uso umano"
+  },
+  "crack": {
+    "title": "Tempo di crack stimato",
+    "scenarioLabel": "Scenario",
+    "estimatedTimeLabel": "Tempo stimato",
+    "average": "medio",
+    "max": "max",
+    "note": "ⓘ Stima basata su {{guesses}} guess di zxcvbn. \"Medio\" assume successo a metà spazio di ricerca; \"max\" assume esplorazione completa. Gli scenari sono indicativi, non universali.",
+    "rateHint": "Puoi modificare i guess/sec per adattare lo scenario al tuo contesto.",
+    "rateLabel": "Velocità",
+    "rateInputAria": "Velocità di tentativi per {{scenario}}",
+    "hardware": {
+      "label": "Profilo hardware",
+      "ariaLabel": "Seleziona profilo hardware di riferimento",
+      "note": "Profili basati su benchmark indicativi; puoi rifinire manualmente i rate sotto.",
+      "profiles": {
+        "baseline": {
+          "label": "Consumer base (2024)",
+          "description": "Laptop/desktop consumer moderno."
+        },
+        "workstation": {
+          "label": "Workstation GPU",
+          "description": "Macchina con GPU dedicata e tuning password-cracking."
+        },
+        "datacenter": {
+          "label": "Cluster datacenter",
+          "description": "Setup distribuito ad alte prestazioni (scenario aggressivo)."
+        }
+      },
+      "sourceRemote": "Profili caricati da API esterna.",
+      "sourceLocal": "Profili locali di fallback in uso.",
+      "remoteError": "Impossibile caricare i profili remoti, uso fallback locale."
+    }
+  },
+  "feedback": {
+    "title": "Analisi qualitativa (zxcvbn)",
+    "none": "Nessuna debolezza strutturale evidente rilevata da zxcvbn",
+    "predictablePatterns": "L'entropia effettiva è circa {{delta}} bit sotto la teorica: sono presenti pattern prevedibili o parole comuni",
+    "leadingTrailingSpaces": "La password inizia o termina con spazi: controlla che sia intenzionale"
+  },
+  "hibp": {
+    "title": "Have I Been Pwned - breach check",
+    "button": "Controlla breach",
+    "idle": "Inserisci una password poi premi il pulsante",
+    "reset": "Password modificata: esegui di nuovo il controllo breach",
+    "checking": "Calcolo SHA-1 e query HIBP...",
+    "safe": "✓ Non trovata nel dataset HIBP",
+    "found": "⚠ Trovata in {{occurrences}} occorrenze - cambia questa password subito",
+    "error": "Errore: {{message}} - rete non disponibile o servizio non raggiungibile",
+    "noteLine1": "ⓘ Usa k-anonymity: invia solo SHA1[0:5] a api.pwnedpasswords.com - la password non esce mai dal browser.",
+    "noteLine2": "Invio online con potenziale metadata leakage (es. IP/timing). Usa solo se consapevole.",
+    "consent": "Confermo il check online HIBP (invio hash prefix, non password completa).",
+    "errors": {
+      "network": "Rete non disponibile. Verifica connessione e riprova.",
+      "serviceUnavailable": "Servizio HIBP temporaneamente non disponibile. Riprova più tardi.",
+      "rateLimited": "Hai raggiunto un limite temporaneo di richieste. Attendi e riprova.",
+      "cryptoUnavailable": "Web Crypto non disponibile nel browser corrente.",
+      "unknown": "Errore imprevisto durante il controllo HIBP."
+    }
+  },
+  "footer": {
+    "telemetry": "nessun log, nessuna telemetria applicativa"
+  },
+  "scenarios": {
+    "online_throttled": {
+      "label": "Online limitato",
+      "desc": "Login protetto da rate-limit, CAPTCHA o lockout",
+      "unit": "100/sec"
+    },
+    "slow_hash": {
+      "label": "Hash lento offline",
+      "desc": "bcrypt / Argon2 / scrypt - KDF intenzionalmente costoso",
+      "unit": "10K/sec"
+    },
+    "fast_hash": {
+      "label": "Hash veloce offline",
+      "desc": "Hash rapidi o leakage mal protetti",
+      "unit": "10G/sec"
+    }
+  },
+  "scores": {
+    "0": "Molto debole",
+    "1": "Debole",
+    "2": "Discreta",
+    "3": "Buona",
+    "4": "Ottima"
+  },
+  "analysisContext": {
+    "title": "Contesto locale per analisi",
+    "description": "Parole legate a te (nome, azienda, prodotto, slang) rendono la stima più realistica.",
+    "placeholder": "es: mario, acme, milano, squadra, brand... (separati da virgola)",
+    "ariaLabel": "Parole di contesto separate da virgola"
+  }
+}
