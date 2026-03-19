@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap');
+
+:root {
+  --bg:       #07090f;
+  --bg2:      #0d1117;
+  --bg3:      #141b24;
+  --border:   #1e2a38;
+  --cyan:     #00e5c8;
+  --cyan-dim: #00896040;
+  --amber:    #ffb400;
+  --red:      #ff4d6d;
+  --green:    #39ff7a;
+  --text:     #c9d6e3;
+  --text-dim: #738093;
+  --mono:     'Share Tech Mono', 'Courier New', monospace;
+  --ui:       'Rajdhani', sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--ui);
+  font-size: 16px;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background-image:
+    linear-gradient(rgba(0, 229, 200, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 200, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+#root {
+  display: contents;
+}
