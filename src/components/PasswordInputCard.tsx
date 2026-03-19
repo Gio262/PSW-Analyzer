@@ -38,6 +38,7 @@ export function PasswordInputCard({
         <input
           type={showPassword ? 'text' : 'password'}
           id="pwInput"
+          className="app-input app-input--password"
           placeholder={placeholder}
           autoComplete="off"
           autoCapitalize="off"

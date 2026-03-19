@@ -170,6 +170,7 @@ function App() {
         <div className="card-title"><span>//</span> {t('analysisContext.title')}</div>
         <div className="mini-note" style={{ marginBottom: '0.45rem' }}>{t('analysisContext.description')}</div>
         <input
+          className="app-input"
           type="text"
           placeholder={t('analysisContext.placeholder')}
           value={contextWordsInput}

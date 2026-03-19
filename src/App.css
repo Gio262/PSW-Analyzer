@@ -167,7 +167,7 @@ header p {
   align-items: center;
 }
 
-#pwInput {
+.app-input {
   width: 100%;
   background: var(--bg3);
   border: 1px solid var(--border);
@@ -175,19 +175,54 @@ header p {
   color: var(--cyan);
   font-family: var(--mono);
   font-size: 1.1rem;
-  padding: 0.9rem 3rem 0.9rem 1rem;
+  padding: 0.9rem 1rem;
   outline: none;
-  letter-spacing: 0.08em;
   transition: border-color 0.2s;
   caret-color: var(--cyan);
 }
 
-#pwInput:focus { border-color: var(--cyan); }
+.app-input:focus { border-color: var(--cyan); }
 
-#pwInput::placeholder {
+.app-input::placeholder {
   color: var(--text-dim);
   font-size: 0.9rem;
   letter-spacing: 0.05em;
+}
+
+.app-input--password {
+  padding-right: 3rem;
+  letter-spacing: 0.08em;
+}
+
+.app-input--compact {
+  width: 8rem;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.95rem;
+}
+
+.select-wrap {
+  position: relative;
+}
+
+.app-input--select {
+  appearance: none;
+  padding-right: 2.6rem;
+  cursor: pointer;
+}
+
+.select-caret {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  color: var(--text-dim);
+  font-family: var(--mono);
+  pointer-events: none;
+  transition: color 0.2s;
+}
+
+.select-wrap:focus-within .select-caret {
+  color: var(--cyan);
 }
 
 #toggleVis {

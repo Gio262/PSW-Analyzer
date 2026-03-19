@@ -53,18 +53,22 @@ export function CrackTimeCard({
             </div>
           )}
           <label className="rate" style={{ display: 'block', marginBottom: '0.75rem' }}>
-            {t('crack.hardware.label')}:{' '}
-            <select
-              value={selectedHardwareProfile}
-              onChange={(event) => onHardwareProfileChange(event.target.value)}
-              aria-label={t('crack.hardware.ariaLabel')}
-            >
-              {profiles.map((profile) => (
-                <option key={profile.id} value={profile.id}>
-                  {resolveText(profile.labelKey, t)}
-                </option>
-              ))}
-            </select>
+            <div style={{ marginBottom: '0.35rem' }}>{t('crack.hardware.label')}:</div>
+            <div className="select-wrap">
+              <select
+                className="app-input app-input--select"
+                value={selectedHardwareProfile}
+                onChange={(event) => onHardwareProfileChange(event.target.value)}
+                aria-label={t('crack.hardware.ariaLabel')}
+              >
+                {profiles.map((profile) => (
+                  <option key={profile.id} value={profile.id}>
+                    {resolveText(profile.labelKey, t)}
+                  </option>
+                ))}
+              </select>
+              <span className="select-caret" aria-hidden="true">▾</span>
+            </div>
             <div className="mini-note">{resolveText(selectedProfile?.descriptionKey ?? '', t)}</div>
           </label>
 
@@ -93,13 +97,13 @@ export function CrackTimeCard({
                       <div className="rate" style={{ marginTop: '0.2rem' }}>
                         {t('crack.rateLabel')}:{' '}
                         <input
+                          className="app-input app-input--compact"
                           type="number"
                           min={1}
                           step={100}
                           value={rate}
                           onChange={(event) => onRateChange(scenario.id, Number(event.target.value))}
                           aria-label={t('crack.rateInputAria', { scenario: t(`scenarios.${scenario.id}.label`) })}
-                          style={{ width: '8rem' }}
                         />{' '}
                         / sec
                       </div>
