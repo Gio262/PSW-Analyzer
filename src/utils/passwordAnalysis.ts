@@ -13,6 +13,11 @@ const BASE_CHARSET_GROUPS: CharsetGroup[] = [
   },
 ]
 
+/**
+ * Raggruppa i caratteri non ASCII per famiglia Unicode usata nella password.
+ * Il numero di bucket serve come euristica per stimare quanto ampio sia
+ * l'alfabeto realmente disponibile oltre ai gruppi ASCII standard.
+ */
 function detectUnicodeBuckets(input: string): number {
   const buckets = new Set<string>()
 
@@ -34,6 +39,11 @@ function detectUnicodeBuckets(input: string): number {
   return buckets.size
 }
 
+/**
+ * Conta i caratteri Unicode non ASCII distinti presenti nell'input.
+ * Il conteggio evita di sovrastimare l'alfabeto quando lo stesso simbolo
+ * viene ripetuto molte volte.
+ */
 function countUniqueNonAsciiCharacters(input: string): number {
   const uniqueChars = new Set<string>()
 
@@ -46,6 +56,11 @@ function countUniqueNonAsciiCharacters(input: string): number {
   return uniqueChars.size
 }
 
+/**
+ * Stima la dimensione dell'alfabeto Unicode extra usato dalla password.
+ * Combina unicita' dei caratteri e bucket Unicode per ottenere un valore
+ * prudente, ma non limitato al solo numero di simboli osservati.
+ */
 function estimateUnicodeAlphabet(password: string): number {
   const uniqueUnicodeChars = countUniqueNonAsciiCharacters(password)
   if (uniqueUnicodeChars === 0) return 0
@@ -59,10 +74,18 @@ function estimateUnicodeAlphabet(password: string): number {
   )
 }
 
+/**
+ * Verifica se l'input contiene almeno un carattere significativo.
+ * Gli spazi iniziali/finali non bastano ad attivare l'analisi password.
+ */
 export function hasMeaningfulInput(str: string): boolean {
   return str.trim().length > 0
 }
 
+/**
+ * Converte un tempo in secondi in una stringa compatta e localizzata.
+ * Gestisce valori estremamente grandi con soglie leggibili per l'utente.
+ */
 export function formatTime(seconds: number, language: AppLanguage): string {
   if (!isFinite(seconds) || seconds > 1e30) {
     return language === 'it' ? "> età dell'universo" : '> age of the universe'
@@ -93,12 +116,20 @@ export function formatTime(seconds: number, language: AppLanguage): string {
   return language === 'it' ? '> 10^15 anni' : '> 10^15 years'
 }
 
+/**
+ * Restituisce la classe visuale associata a una stima di cracking.
+ * Le soglie distinguono tempi immediati, intermedi e molto resistenti.
+ */
 export function timeClass(seconds: number): string {
   if (seconds < 3600) return 'danger'
   if (seconds > 3_153_600_000) return 'safe'
   return ''
 }
 
+/**
+ * Formatta il numero stimato di tentativi in una notazione breve.
+ * Mantiene leggibili valori molto grandi senza perdere l'ordine di grandezza.
+ */
 export function fmtGuesses(n: number): string {
   if (n >= 1e12) return `${(n / 1e12).toFixed(1)}T`
   if (n >= 1e9) return `${(n / 1e9).toFixed(1)}G`
@@ -107,6 +138,11 @@ export function fmtGuesses(n: number): string {
   return `${Math.round(n)}`
 }
 
+/**
+ * Analizza i gruppi di caratteri presenti nella password e calcola
+ * l'entropia teorica come lunghezza * log2(dimensione charset stimata).
+ * Il risultato include anche i gruppi attivi per la visualizzazione UI.
+ */
 export function analyzeCharset(password: string): CharsetInfo {
   let charsetSize = 0
   const active: CharsetGroup[] = []
