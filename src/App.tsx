@@ -61,6 +61,8 @@ function App() {
     return { ...baseRates, ...rateOverrides }
   }, [hardwareProfiles, resolvedHardwareProfile, rateOverrides])
 
+  // Must run before usePasswordAnalysis: updates zxcvbnOptions global state
+  // so that zxcvbn() inside the analysis hook reads the correct dictionary.
   useZxcvbnLanguage(currentLanguage)
 
   const {
@@ -70,7 +72,7 @@ function App() {
     entropyTheoretical,
     entropyEffective,
     entropyConservative,
-  } = usePasswordAnalysis({ password, userInputs: contextWords })
+  } = usePasswordAnalysis({ password, userInputs: contextWords, language: currentLanguage })
 
   const {
     hibpBtnDisabled,
