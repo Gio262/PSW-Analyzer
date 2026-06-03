@@ -118,7 +118,7 @@ export function formatTime(seconds: number, language: AppLanguage): string {
  * Le soglie distinguono tempi immediati, intermedi e molto resistenti.
  */
 export function timeClass(seconds: number): string {
-  if (seconds < 3600) return 'danger'
+  if (seconds < 7200) return 'danger'
   if (seconds > 3_153_600_000) return 'safe'
   return ''
 }

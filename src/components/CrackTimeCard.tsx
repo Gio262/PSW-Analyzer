@@ -85,9 +85,8 @@ export function CrackTimeCard({
             <tbody>
               {ATTACK_SCENARIOS.map((scenario) => {
                 const rate = Math.max(1, rates[scenario.id] ?? scenario.rate)
-                const avgSecs = guesses / 2 / rate
-                const maxSecs = guesses / rate
-                const tc = timeClass(avgSecs)
+                const crackSecs = guesses / rate
+                const tc = timeClass(crackSecs)
 
                 return (
                   <tr key={scenario.id}>
@@ -109,10 +108,7 @@ export function CrackTimeCard({
                       </div>
                     </td>
                     <td className={`crack-time${tc ? ` ${tc}` : ''}`}>
-                      <div>{t('crack.average')}: {formatTime(avgSecs, language)}</div>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)', marginTop: '0.15rem' }}>
-                        {t('crack.max')}: {formatTime(maxSecs, language)}
-                      </div>
+                      <div>{formatTime(crackSecs, language)}</div>
                     </td>
                   </tr>
                 )
