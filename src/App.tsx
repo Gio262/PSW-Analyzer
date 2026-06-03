@@ -7,6 +7,7 @@ import { EntropyCard } from './components/EntropyCard'
 import { CrackTimeCard } from './components/CrackTimeCard'
 import { FeedbackCard } from './components/FeedbackCard'
 import { HibpCard } from './components/HibpCard'
+import { GeneratorCard } from './components/GeneratorCard'
 import {
   ATTACK_SCENARIOS,
   DEFAULT_HARDWARE_PROFILE_ID,
@@ -115,6 +116,11 @@ function App() {
       ...prev,
       [scenarioId]: Number.isFinite(rate) && rate > 0 ? Math.round(rate) : 1,
     }))
+  }
+
+  function handleUseInAnalyzer(generated: string) {
+    setPassword(generated)
+    resetByPassword(generated)
   }
 
   function handleHardwareProfileChange(profileId: string) {
@@ -226,6 +232,8 @@ function App() {
           void runCheck()
         }}
       />
+
+      <GeneratorCard t={t} onUseInAnalyzer={handleUseInAnalyzer} />
 
       <footer>
         <div>

@@ -127,6 +127,23 @@
     "3": "Good",
     "4": "Excellent"
   },
+  "generator": {
+    "title": "Password Generator",
+    "description": "CSPRNG-based generator with rejection sampling (NIST SP 800-90A). Entropy is calculated exactly, not estimated.",
+    "modePassword": "Password",
+    "modePassphrase": "Passphrase",
+    "length": "Length",
+    "excludeAmbiguous": "Exclude ambiguous chars (0/O/1/l/I…)",
+    "ensureAllClasses": "Ensure all selected character types appear",
+    "wordCount": "Word count",
+    "wordlist": "Wordlist",
+    "separator": "Separator",
+    "capitalize": "Capitalize first letter of each word",
+    "generate": "Generate",
+    "entropy": "Entropy",
+    "poolLabel": "pool size",
+    "useInAnalyzer": "Use in analyzer"
+  },
   "analysisContext": {
     "title": "Local analysis context",
     "description": "Words related to you (name, company, product, slang) make estimates more realistic.",

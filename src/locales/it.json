@@ -127,6 +127,23 @@
     "3": "Buona",
     "4": "Ottima"
   },
+  "generator": {
+    "title": "Generatore di password",
+    "description": "Generatore basato su CSPRNG con rejection sampling (NIST SP 800-90A). L'entropia è calcolata analiticamente, non stimata.",
+    "modePassword": "Password",
+    "modePassphrase": "Passphrase",
+    "length": "Lunghezza",
+    "excludeAmbiguous": "Escludi caratteri ambigui (0/O/1/l/I…)",
+    "ensureAllClasses": "Garantisci tutti i tipi di carattere selezionati",
+    "wordCount": "Numero di parole",
+    "wordlist": "Lista parole",
+    "separator": "Separatore",
+    "capitalize": "Prima lettera maiuscola per ogni parola",
+    "generate": "Genera",
+    "entropy": "Entropia",
+    "poolLabel": "dimensione pool",
+    "useInAnalyzer": "Usa nell'analizzatore"
+  },
   "analysisContext": {
     "title": "Contesto locale per analisi",
     "description": "Parole legate a te (nome, azienda, prodotto, slang) rendono la stima più realistica.",
