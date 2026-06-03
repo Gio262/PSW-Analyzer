@@ -58,8 +58,9 @@ function countUniqueNonAsciiCharacters(input: string): number {
 
 /**
  * Stima la dimensione dell'alfabeto Unicode extra usato dalla password.
- * Combina unicita' dei caratteri e bucket Unicode per ottenere un valore
- * prudente, ma non limitato al solo numero di simboli osservati.
+ * Prende il massimo fra uniqueChars*4 (scala con i caratteri distinti usati)
+ * e buckets*32 (scala con quante famiglie Unicode distinte sono presenti),
+ * coprendo sia password con pochi caratteri da molti blocchi che il caso opposto.
  */
 function estimateUnicodeAlphabet(password: string): number {
   const uniqueUnicodeChars = countUniqueNonAsciiCharacters(password)
@@ -67,11 +68,7 @@ function estimateUnicodeAlphabet(password: string): number {
 
   const unicodeBuckets = detectUnicodeBuckets(password)
 
-  return Math.max(
-    uniqueUnicodeChars,
-    uniqueUnicodeChars * 4,
-    unicodeBuckets * 32,
-  )
+  return Math.max(uniqueUnicodeChars * 4, unicodeBuckets * 32)
 }
 
 /**
