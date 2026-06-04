@@ -47,6 +47,8 @@
     "title": "Tempo di crack stimato",
     "scenarioLabel": "Scenario",
     "estimatedTimeLabel": "Tempo stimato",
+    "economicCostLabel": "Costo attacco",
+    "costHint": "stima cloud on-demand",
     "note": "ⓘ Stima basata su {{guesses}} guess di zxcvbn (tentativi attesi per un attaccante ottimale). Gli scenari sono indicativi, non universali.",
     "rateHint": "Puoi modificare i guess/sec per adattare lo scenario al tuo contesto.",
     "rateLabel": "Velocità",

@@ -47,6 +47,8 @@
     "title": "Estimated crack time",
     "scenarioLabel": "Scenario",
     "estimatedTimeLabel": "Estimated time",
+    "economicCostLabel": "Attack cost",
+    "costHint": "on-demand cloud estimate",
     "note": "ⓘ Estimate based on {{guesses}} zxcvbn guesses (expected attempts for an optimal attacker). These scenarios are indicative, not universal.",
     "rateHint": "You can edit guesses/sec to better match your real attack scenario.",
     "rateLabel": "Rate",

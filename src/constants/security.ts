@@ -16,6 +16,8 @@ export const ATTACK_SCENARIOS: { id: AttackScenarioId; rate: number }[] = [
   },
 ] as const
 
+// Cloud GPU rental prices as of 2026-01.
+// Sources: vast.ai/pricing, runpod.io/pricing, aws.amazon.com/ec2/instance-types/p4
 export const LOCAL_HARDWARE_PROFILES: HardwareProfile[] = [
   {
     id: 'baseline_consumer_2024',
@@ -26,6 +28,12 @@ export const LOCAL_HARDWARE_PROFILES: HardwareProfile[] = [
       slow_hash: 10_000,
       fast_hash: 10_000_000_000,
     },
+    // Owned consumer PC: ~$0.05/h amortisation + ~$0.10/h electricity
+    costPerHour: {
+      slow_hash: 0.15,
+      fast_hash: 0.15,
+    },
+    costCurrency: 'USD',
   },
   {
     id: 'workstation_gpu',
@@ -36,6 +44,12 @@ export const LOCAL_HARDWARE_PROFILES: HardwareProfile[] = [
       slow_hash: 50_000,
       fast_hash: 40_000_000_000,
     },
+    // RTX 4090 on vast.ai / RunPod: ~$0.40–0.60/h
+    costPerHour: {
+      slow_hash: 0.50,
+      fast_hash: 0.50,
+    },
+    costCurrency: 'USD',
   },
   {
     id: 'datacenter_cluster',
@@ -46,6 +60,12 @@ export const LOCAL_HARDWARE_PROFILES: HardwareProfile[] = [
       slow_hash: 250_000,
       fast_hash: 200_000_000_000,
     },
+    // 5× RTX 4090 cluster or 1× A100 on cloud: ~$2.50–4.00/h
+    costPerHour: {
+      slow_hash: 3.00,
+      fast_hash: 3.00,
+    },
+    costCurrency: 'USD',
   },
 ] as const
 
