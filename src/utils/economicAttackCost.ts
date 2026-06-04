@@ -35,7 +35,7 @@ export function estimateAttackCost(
 
 /**
  * Formats a cost estimate for display:
- *   n/a / NaN / negative  → "n/a"
+ *   n/a / NaN / negative  → "n/a"  (Infinity → "not economically feasible" via last branch)
  *   < $0.01               → "< $0.01"
  *   $0.01 – $0.99         → "$0.42"
  *   $1 – $9.99            → "$1.20"  (2 decimals)
@@ -52,7 +52,7 @@ export function formatCost(estimate: CostEstimate): string {
   const sym = estimate.currency === 'EUR' ? '€' : '$'
   const amt = estimate.amount
 
-  if (!Number.isFinite(amt) || amt < 0) return 'n/a'
+  if (Number.isNaN(amt) || amt < 0) return 'n/a'
   if (amt < 0.01) return `< ${sym}0.01`
   if (amt < 1) return `${sym}${amt.toFixed(2)}`
   if (amt < 1000) return `${sym}${amt.toFixed(amt < 10 ? 2 : 0)}`
