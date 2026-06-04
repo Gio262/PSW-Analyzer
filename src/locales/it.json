@@ -144,6 +144,10 @@
     "poolLabel": "dimensione pool",
     "useInAnalyzer": "Usa nell'analizzatore"
   },
+  "keyboardLayouts": {
+    "title": "Rilevamento layout di tastiera",
+    "description": "Seleziona i layout di tastiera da considerare per la rilevazione dei pattern spaziali (es. sequenze qwerty, asdfgh). Le modifiche hanno effetto immediato sulla prossima analisi."
+  },
   "analysisContext": {
     "title": "Contesto locale per analisi",
     "description": "Parole legate a te (nome, azienda, prodotto, slang) rendono la stima più realistica.",

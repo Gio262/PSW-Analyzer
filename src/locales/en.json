@@ -144,6 +144,10 @@
     "poolLabel": "pool size",
     "useInAnalyzer": "Use in analyzer"
   },
+  "keyboardLayouts": {
+    "title": "Keyboard Layout Detection",
+    "description": "Select which keyboard layouts to consider for spatial pattern detection (e.g. qwerty runs, asdfgh). Changes take effect immediately on the next analysis."
+  },
   "analysisContext": {
     "title": "Local analysis context",
     "description": "Words related to you (name, company, product, slang) make estimates more realistic.",

@@ -8,6 +8,7 @@ import { CrackTimeCard } from './components/CrackTimeCard'
 import { FeedbackCard } from './components/FeedbackCard'
 import { HibpCard } from './components/HibpCard'
 import { GeneratorCard } from './components/GeneratorCard'
+import { KeyboardLayoutsCard } from './components/KeyboardLayoutsCard'
 import {
   ATTACK_SCENARIOS,
   DEFAULT_HARDWARE_PROFILE_ID,
@@ -17,6 +18,7 @@ import {
 import { useFeedbackItems } from './hooks/useFeedbackItems'
 import { useHardwareProfiles } from './hooks/useHardwareProfiles'
 import { useHibpCheck } from './hooks/useHibpCheck'
+import { useKeyboardLayouts } from './hooks/useKeyboardLayouts'
 import { usePasswordAnalysis } from './hooks/usePasswordAnalysis'
 import { useZxcvbnLanguage } from './hooks/useZxcvbnLanguage'
 import { normalizeLanguage, type AppLanguage } from './i18n'
@@ -62,9 +64,15 @@ function App() {
     return { ...baseRates, ...rateOverrides }
   }, [hardwareProfiles, resolvedHardwareProfile, rateOverrides])
 
-  // Must run before usePasswordAnalysis: updates zxcvbnOptions global state
-  // so that zxcvbn() inside the analysis hook reads the correct dictionary.
+  // ORDERING IS LOAD-BEARING: React runs useEffect calls in hook declaration order.
+  // useZxcvbnLanguage (dictionary+translations) → useKeyboardLayouts (graphs) →
+  // usePasswordAnalysis (calls zxcvbn) — all three must remain in this order.
+  // Reordering these hooks or moving usePasswordAnalysis into a child component
+  // would break the zxcvbnOptions sequencing silently.
   useZxcvbnLanguage(currentLanguage)
+
+  const { availableLayouts, selectedIds: selectedLayoutIds, toggleLayout, layoutsVersion } =
+    useKeyboardLayouts()
 
   const {
     analysisData,
@@ -73,7 +81,7 @@ function App() {
     entropyTheoretical,
     entropyEffective,
     entropyConservative,
-  } = usePasswordAnalysis({ password, userInputs: contextWords, language: currentLanguage })
+  } = usePasswordAnalysis({ password, userInputs: contextWords, language: currentLanguage, layoutsVersion })
 
   const {
     hibpBtnDisabled,
@@ -231,6 +239,13 @@ function App() {
         onCheck={() => {
           void runCheck()
         }}
+      />
+
+      <KeyboardLayoutsCard
+        availableLayouts={availableLayouts}
+        selectedIds={selectedLayoutIds}
+        onToggle={toggleLayout}
+        t={t}
       />
 
       <GeneratorCard t={t} onUseInAnalyzer={handleUseInAnalyzer} />

@@ -8,9 +8,11 @@ interface UsePasswordAnalysisOptions {
   password: string
   userInputs?: string[]
   language: AppLanguage
+  /** Cache key: forces re-run when active keyboard layouts change */
+  layoutsVersion?: string
 }
 
-export function usePasswordAnalysis({ password, userInputs = [], language }: UsePasswordAnalysisOptions) {
+export function usePasswordAnalysis({ password, userInputs = [], language, layoutsVersion }: UsePasswordAnalysisOptions) {
   const [analysisData, setAnalysisData] = useState<AnalysisData | null>(null)
 
   useEffect(() => {
@@ -27,10 +29,11 @@ export function usePasswordAnalysis({ password, userInputs = [], language }: Use
     }, 120)
 
     return () => window.clearTimeout(timeoutId)
-  }, [password, userInputs, language])
-  // `language` is a cache key: when it changes, zxcvbnOptions has already been
-  // updated by useZxcvbnLanguage (which runs first), so zxcvbn() re-runs with
-  // the new dictionary.
+  }, [password, userInputs, language, layoutsVersion])
+  // `language` and `layoutsVersion` are cache keys: when either changes,
+  // zxcvbnOptions has already been updated by the preceding hooks
+  // (useZxcvbnLanguage + useKeyboardLayouts run before this one in App.tsx),
+  // so zxcvbn() re-runs with the correct dictionary and graphs.
 
   return useMemo(() => {
     const score = Math.max(0, Math.min(analysisData?.result.score ?? 0, 4))
