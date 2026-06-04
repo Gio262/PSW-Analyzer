@@ -349,6 +349,34 @@ header p {
 .crack-table .crack-cost.caution { color: #ffb400; }
 .crack-table .crack-cost.safe    { color: #39ff7a; }
 
+.moore-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  margin-top: 0.5rem;
+}
+
+.moore-table th {
+  text-align: left;
+  color: var(--text-dim);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.5rem 0.8rem;
+  border-bottom: 1px solid var(--border);
+  font-weight: 400;
+}
+
+.moore-table td {
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid #141b2460;
+  vertical-align: middle;
+}
+
+.moore-table tbody tr:first-child td { font-weight: 500; }
+.moore-table tr:last-child td { border-bottom: none; }
+
 .feedback-list {
   list-style: none;
   margin-top: 0.5rem;

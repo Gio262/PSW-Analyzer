@@ -5,6 +5,7 @@ import { LanguageSwitcher } from './components/LanguageSwitcher'
 import { PasswordInputCard } from './components/PasswordInputCard'
 import { EntropyCard } from './components/EntropyCard'
 import { CrackTimeCard } from './components/CrackTimeCard'
+import { MooreProjectionCard } from './components/MooreProjectionCard'
 import { FeedbackCard } from './components/FeedbackCard'
 import { HibpCard } from './components/HibpCard'
 import { GeneratorCard } from './components/GeneratorCard'
@@ -58,6 +59,11 @@ function App() {
     const exists = hardwareProfiles.some((profile) => profile.id === selectedHardwareProfile)
     return exists ? selectedHardwareProfile : (hardwareProfiles[0]?.id ?? DEFAULT_HARDWARE_PROFILE_ID)
   }, [hardwareProfiles, selectedHardwareProfile])
+
+  const selectedProfileObject = useMemo(
+    () => hardwareProfiles.find(p => p.id === resolvedHardwareProfile),
+    [hardwareProfiles, resolvedHardwareProfile],
+  )
 
   const scenarioRates = useMemo(() => {
     const baseRates = getDefaultRates(hardwareProfiles, resolvedHardwareProfile)
@@ -217,6 +223,14 @@ function App() {
         t={t}
         onHardwareProfileChange={handleHardwareProfileChange}
         onRateChange={handleScenarioRateChange}
+      />
+
+      <MooreProjectionCard
+        hasData={hasAnalysis}
+        language={currentLanguage}
+        guesses={guesses}
+        selectedProfile={selectedProfileObject}
+        t={t}
       />
 
       <FeedbackCard

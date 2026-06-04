@@ -150,6 +150,21 @@
     "title": "Keyboard Layout Detection",
     "description": "Select which keyboard layouts to consider for spatial pattern detection (e.g. qwerty runs, asdfgh). Changes take effect immediately on the next analysis."
   },
+  "moore": {
+    "title": "Hardware Projection (Moore's Law)",
+    "description": "How crack time evolves as hardware improves. Assumes hashrate doubles every 2 years (conservative GPU benchmark trend).",
+    "yearLabel": "Year",
+    "rateLabel": "Hashrate",
+    "crackTimeLabel": "Crack time",
+    "costLabel": "Cost",
+    "now": "Today",
+    "inYears": "in {{n}} yrs",
+    "summary": {
+      "crackableIn1Hour": "⚠ Crackable in under 1 hour in {{years}} years",
+      "crackableIn1Minute": "⚠ Crackable in under 1 minute in {{years}} years"
+    },
+    "footnote": "ⓘ Illustrative model only — not a forecast. Assumes fast-hash scenario, cost per hour unchanged."
+  },
   "analysisContext": {
     "title": "Local analysis context",
     "description": "Words related to you (name, company, product, slang) make estimates more realistic.",

@@ -150,6 +150,21 @@
     "title": "Rilevamento layout di tastiera",
     "description": "Seleziona i layout di tastiera da considerare per la rilevazione dei pattern spaziali (es. sequenze qwerty, asdfgh). Le modifiche hanno effetto immediato sulla prossima analisi."
   },
+  "moore": {
+    "title": "Proiezione hardware (Legge di Moore)",
+    "description": "Come cambia il tempo di crack all'aumentare della potenza hardware. Ipotizza un raddoppio dell'hashrate ogni 2 anni (trend conservativo per GPU).",
+    "yearLabel": "Anno",
+    "rateLabel": "Hashrate",
+    "crackTimeLabel": "Tempo di crack",
+    "costLabel": "Costo",
+    "now": "Oggi",
+    "inYears": "tra {{n}} anni",
+    "summary": {
+      "crackableIn1Hour": "⚠ Crackabile in meno di 1 ora tra {{years}} anni",
+      "crackableIn1Minute": "⚠ Crackabile in meno di 1 minuto tra {{years}} anni"
+    },
+    "footnote": "ⓘ Modello illustrativo, non una previsione. Ipotizza scenario fast-hash, costo/ora invariato."
+  },
   "analysisContext": {
     "title": "Contesto locale per analisi",
     "description": "Parole legate a te (nome, azienda, prodotto, slang) rendono la stima più realistica.",
