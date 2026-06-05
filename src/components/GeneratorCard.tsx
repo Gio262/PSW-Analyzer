@@ -83,6 +83,7 @@ export function GeneratorCard({ t, onUseInAnalyzer }: GeneratorCardProps) {
           <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <span className="mini-note">{t('generator.length')}: <strong>{length}</strong> / 50</span>
             <input
+              data-testid="password-length-slider"
               type="range" min={8} max={50} value={length}
               onChange={e => setLength(Number(e.target.value))}
               style={{ flex: 1 }}
