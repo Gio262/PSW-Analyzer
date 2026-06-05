@@ -200,6 +200,47 @@ header p {
   font-size: 0.95rem;
 }
 
+.app-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 3px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: border-color 0.2s, color 0.2s, background 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.app-btn:hover:not(:disabled),
+.app-btn:focus-visible:not(:disabled) {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  background: rgba(0, 229, 200, 0.04);
+  outline: none;
+}
+
+.app-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* Active (selected) state — visually distinct from hover: stronger background + outer glow */
+.app-btn.active {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  background: rgba(0, 229, 200, 0.12);
+  box-shadow: 0 0 8px rgba(0, 229, 200, 0.22);
+}
+
+.app-btn.active:hover:not(:disabled) {
+  background: rgba(0, 229, 200, 0.16);
+}
+
 .select-wrap {
   position: relative;
 }

@@ -22,6 +22,11 @@
   padding: 0;
 }
 
+/* Ensure all interactive elements use the project monospace font */
+button, input, select, textarea {
+  font-family: var(--mono);
+}
+
 body {
   background: var(--bg);
   color: var(--text);

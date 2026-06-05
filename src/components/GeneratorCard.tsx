@@ -12,7 +12,7 @@ export function GeneratorCard({ t, onUseInAnalyzer }: GeneratorCardProps) {
   const gen = useSecureGenerator()
 
   // Password options
-  const [length, setLength] = useState(20)
+  const [length, setLength] = useState(20) // max 50 per usability
   const [lowercase, setLowercase] = useState(true)
   const [uppercase, setUppercase] = useState(true)
   const [digits, setDigits] = useState(true)
@@ -53,12 +53,14 @@ export function GeneratorCard({ t, onUseInAnalyzer }: GeneratorCardProps) {
       <div className="generator-mode-switch" style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.7rem' }}>
         <button
           className={`app-btn${mode === 'password' ? ' active' : ''}`}
+          aria-pressed={mode === 'password'}
           onClick={() => setMode('password')}
         >
           {t('generator.modePassword')}
         </button>
         <button
           className={`app-btn${mode === 'passphrase' ? ' active' : ''}`}
+          aria-pressed={mode === 'passphrase'}
           onClick={() => setMode('passphrase')}
         >
           {t('generator.modePassphrase')}
@@ -70,7 +72,7 @@ export function GeneratorCard({ t, onUseInAnalyzer }: GeneratorCardProps) {
           <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <span className="mini-note">{t('generator.length')}: <strong>{length}</strong></span>
             <input
-              type="range" min={8} max={128} value={length}
+              type="range" min={8} max={50} value={length}
               onChange={e => setLength(Number(e.target.value))}
               style={{ flex: 1 }}
             />
