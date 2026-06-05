@@ -133,12 +133,19 @@
     "title": "Generatore di password",
     "description": "Generatore basato su CSPRNG con rejection sampling (NIST SP 800-90A). L'entropia è calcolata analiticamente, non stimata.",
     "modePassword": "Password",
+    "modePasswordDesc": "Genera una sequenza casuale di caratteri dalle classi selezionate. Entropia = lunghezza × log₂(dimensione pool).",
     "modePassphrase": "Passphrase",
+    "modePassphraseDesc": "Genera una sequenza di parole casuali da un dizionario Diceware. Più memorabile di una password a caratteri casuali per entropia equivalente.",
     "length": "Lunghezza",
     "excludeAmbiguous": "Escludi caratteri ambigui (0/O/1/l/I…)",
     "ensureAllClasses": "Garantisci tutti i tipi di carattere selezionati",
     "wordCount": "Numero di parole",
     "wordlist": "Lista parole",
+    "wordlistDesc": {
+      "effLong": "Lista EFF lunga · 7776 parole · 12,9 bit/parola · Miglior bilanciamento tra memorabilità ed entropia. Consigliata per la maggior parte degli usi.",
+      "effShort1": "Lista EFF corta v1 · 1296 parole · 10,3 bit/parola · Parole più semplici e brevi — usa 9+ parole per ottenere la stessa entropia di 7 parole EFF lunga.",
+      "reinhold": "Reinhold classica (1995) · 7776 parole · 12,9 bit/parola · La lista Diceware originale. Stessa entropia della lista EFF lunga."
+    },
     "separator": "Separatore",
     "capitalize": "Prima lettera maiuscola per ogni parola",
     "generate": "Genera",
@@ -148,7 +155,8 @@
   },
   "keyboardLayouts": {
     "title": "Rilevamento layout di tastiera",
-    "description": "Seleziona i layout di tastiera da considerare per la rilevazione dei pattern spaziali (es. sequenze qwerty, asdfgh). Le modifiche hanno effetto immediato sulla prossima analisi."
+    "description": "Seleziona quali layout di tastiera zxcvbn deve considerare per rilevare i pattern di camminata sulla tastiera (es. 'qwerty', 'asdfgh', 'йцукен') nella password digitata sopra.",
+    "analysisOnlyNote": "Questa impostazione riguarda solo l'ANALISI della password — rileva pattern di tastiera nel testo inserito nel campo in alto. Non ha alcun effetto sul generatore di password sotto, che produce output crittograficamente casuale indipendentemente dal layout."
   },
   "moore": {
     "title": "Proiezione hardware (Legge di Moore)",

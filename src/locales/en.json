@@ -133,12 +133,19 @@
     "title": "Password Generator",
     "description": "CSPRNG-based generator with rejection sampling (NIST SP 800-90A). Entropy is calculated exactly, not estimated.",
     "modePassword": "Password",
+    "modePasswordDesc": "Generates a random sequence of characters from the selected character classes. Entropy = length × log₂(pool size).",
     "modePassphrase": "Passphrase",
+    "modePassphraseDesc": "Generates a sequence of random words from a Diceware list. Easier to remember than a random-character password of comparable entropy.",
     "length": "Length",
     "excludeAmbiguous": "Exclude ambiguous chars (0/O/1/l/I…)",
     "ensureAllClasses": "Ensure all selected character types appear",
     "wordCount": "Word count",
     "wordlist": "Wordlist",
+    "wordlistDesc": {
+      "effLong": "EFF long list · 7776 words · 12.9 bits/word · Best balance of memorability and entropy. Recommended for most use cases.",
+      "effShort1": "EFF short list v1 · 1296 words · 10.3 bits/word · Simpler, shorter words — use 9+ words to achieve the same entropy as 7 EFF long words.",
+      "reinhold": "Reinhold classic (1995) · 7776 words · 12.9 bits/word · The original Diceware word list. Same entropy as EFF long."
+    },
     "separator": "Separator",
     "capitalize": "Capitalize first letter of each word",
     "generate": "Generate",
@@ -148,7 +155,8 @@
   },
   "keyboardLayouts": {
     "title": "Keyboard Layout Detection",
-    "description": "Select which keyboard layouts to consider for spatial pattern detection (e.g. qwerty runs, asdfgh). Changes take effect immediately on the next analysis."
+    "description": "Select which keyboard layouts zxcvbn should consider when detecting spatial walk patterns (e.g. 'qwerty', 'asdfgh', 'йцукен') in the password you type above.",
+    "analysisOnlyNote": "This setting affects password ANALYSIS only — it detects keyboard patterns in the text typed in the input field above. It has no effect on the password generator below, which produces cryptographically random output regardless of layout."
   },
   "moore": {
     "title": "Hardware Projection (Moore's Law)",

@@ -573,6 +573,29 @@ header p {
   line-height: 1.5;
 }
 
+/* Keyboard layout card — analysis-only notice box */
+.keyboard-analysis-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  line-height: 1.5;
+  color: var(--cyan);
+  background: rgba(0, 229, 200, 0.05);
+  border: 1px solid rgba(0, 229, 200, 0.2);
+  border-left: 3px solid var(--cyan);
+  border-radius: 3px;
+  padding: 0.55rem 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.keyboard-analysis-note__icon {
+  flex-shrink: 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
 footer {
   margin-top: 2rem;
   font-family: var(--mono);

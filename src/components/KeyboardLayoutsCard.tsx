@@ -18,10 +18,17 @@ export function KeyboardLayoutsCard({
       <div className="card-title">
         <span>//</span> {t('keyboardLayouts.title')}
       </div>
-      <div className="mini-note" style={{ marginBottom: '0.6rem' }}>
+      <div className="mini-note" style={{ marginBottom: '0.5rem' }}>
         {t('keyboardLayouts.description')}
       </div>
-      <div className="keyboard-layout-list">
+
+      {/* Prominent note clarifying scope: analysis only, NOT generation */}
+      <div className="keyboard-analysis-note">
+        <span className="keyboard-analysis-note__icon">ⓘ</span>
+        {t('keyboardLayouts.analysisOnlyNote')}
+      </div>
+
+      <div className="keyboard-layout-list" style={{ marginTop: '0.6rem' }}>
         {availableLayouts.map(layout => {
           const checked = selectedIds.includes(layout.id)
           return (

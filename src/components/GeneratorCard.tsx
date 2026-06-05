@@ -7,6 +7,12 @@ interface GeneratorCardProps {
   onUseInAnalyzer?: (password: string) => void
 }
 
+const WORDLIST_DESCRIPTION_KEY: Record<DicewareList, string> = {
+  'eff-long':     'generator.wordlistDesc.effLong',
+  'eff-short1':   'generator.wordlistDesc.effShort1',
+  'reinhold-en':  'generator.wordlistDesc.reinhold',
+}
+
 export function GeneratorCard({ t, onUseInAnalyzer }: GeneratorCardProps) {
   const [mode, setMode] = useState<'password' | 'passphrase'>('password')
   const gen = useSecureGenerator()
@@ -50,7 +56,8 @@ export function GeneratorCard({ t, onUseInAnalyzer }: GeneratorCardProps) {
         {t('generator.description')}
       </div>
 
-      <div className="generator-mode-switch" style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.7rem' }}>
+      {/* Mode selector */}
+      <div className="generator-mode-switch" style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.4rem' }}>
         <button
           className={`app-btn${mode === 'password' ? ' active' : ''}`}
           aria-pressed={mode === 'password'}
@@ -66,11 +73,15 @@ export function GeneratorCard({ t, onUseInAnalyzer }: GeneratorCardProps) {
           {t('generator.modePassphrase')}
         </button>
       </div>
+      {/* Dynamic description of selected mode */}
+      <div className="mini-note" style={{ marginBottom: '0.7rem', marginTop: '0.2rem' }}>
+        {mode === 'password' ? t('generator.modePasswordDesc') : t('generator.modePassphraseDesc')}
+      </div>
 
       {mode === 'password' && (
         <div className="generator-options" style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', marginBottom: '0.7rem' }}>
           <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span className="mini-note">{t('generator.length')}: <strong>{length}</strong></span>
+            <span className="mini-note">{t('generator.length')}: <strong>{length}</strong> / 50</span>
             <input
               type="range" min={8} max={50} value={length}
               onChange={e => setLength(Number(e.target.value))}
@@ -98,18 +109,24 @@ export function GeneratorCard({ t, onUseInAnalyzer }: GeneratorCardProps) {
               style={{ flex: 1 }}
             />
           </label>
-          <label className="mini-note" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-            {t('generator.wordlist')}:
-            <select
-              className="app-input app-input--select"
-              value={list}
-              onChange={e => setList(e.target.value as DicewareList)}
-            >
-              <option value="eff-long">EFF long (7776, 12.9 bit/word)</option>
-              <option value="eff-short1">EFF short1 (1296, 10.3 bit/word)</option>
-              <option value="reinhold-en">Reinhold classic (7776, 12.9 bit/word)</option>
-            </select>
-          </label>
+          <div>
+            <label className="mini-note" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginBottom: '0.2rem' }}>
+              {t('generator.wordlist')}:
+              <select
+                className="app-input app-input--select"
+                value={list}
+                onChange={e => setList(e.target.value as DicewareList)}
+              >
+                <option value="eff-long">EFF long</option>
+                <option value="eff-short1">EFF short1</option>
+                <option value="reinhold-en">Reinhold classic</option>
+              </select>
+            </label>
+            {/* Dynamic description of selected wordlist */}
+            <div className="mini-note" style={{ marginTop: '0.15rem', paddingLeft: '0.1rem' }}>
+              {t(WORDLIST_DESCRIPTION_KEY[list])}
+            </div>
+          </div>
           <label className="mini-note" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
             {t('generator.separator')}:
             <input
