@@ -47,9 +47,9 @@
     "title": "Estimated crack time",
     "scenarioLabel": "Scenario",
     "estimatedTimeLabel": "Estimated time",
-    "average": "avg",
-    "max": "max",
-    "note": "ⓘ Estimate based on {{guesses}} zxcvbn guesses. \"Avg\" assumes success halfway through the search space; \"max\" assumes a full search. These scenarios are indicative, not universal.",
+    "economicCostLabel": "Attack cost",
+    "costHint": "on-demand cloud estimate",
+    "note": "ⓘ Formula: crack_time = guesses ÷ guesses/sec. Based on {{guesses}} guesses (zxcvbn estimate of expected attempts for an optimal attacker). Scenarios are indicative.",
     "rateHint": "You can edit guesses/sec to better match your real attack scenario.",
     "rateLabel": "Rate",
     "rateInputAria": "Guess rate for {{scenario}}",
@@ -128,6 +128,65 @@
     "2": "Fair",
     "3": "Good",
     "4": "Excellent"
+  },
+  "generator": {
+    "title": "Password Generator",
+    "description": "CSPRNG-based generator with rejection sampling (NIST SP 800-90A). Entropy is calculated exactly, not estimated.",
+    "modePassword": "Password",
+    "modePasswordDesc": "Generates a random sequence of characters from the selected character classes. Entropy = length × log₂(pool size).",
+    "modePassphrase": "Passphrase",
+    "modePassphraseDesc": "Generates a sequence of random words from a Diceware list. Easier to remember than a random-character password of comparable entropy.",
+    "length": "Length",
+    "excludeAmbiguous": "Exclude ambiguous chars (0/O/1/l/I…)",
+    "ensureAllClasses": "Ensure all selected character types appear",
+    "wordCount": "Word count",
+    "wordlist": "Wordlist",
+    "wordlistDesc": {
+      "effLong": "EFF long list · 7776 words · 12.9 bits/word · Best balance of memorability and entropy. Recommended for most use cases.",
+      "effShort1": "EFF short list v1 · 1296 words · 10.3 bits/word · Simpler, shorter words — use 9+ words to achieve the same entropy as 7 EFF long words.",
+      "reinhold": "Reinhold classic (1995) · 7776 words · 12.9 bits/word · The original Diceware word list. Same entropy as EFF long."
+    },
+    "separator": "Separator",
+    "capitalize": "Capitalize first letter of each word",
+    "generate": "Generate",
+    "entropy": "Entropy",
+    "poolLabel": "pool size",
+    "useInAnalyzer": "Use in analyzer"
+  },
+  "keyboardLayouts": {
+    "title": "Keyboard Layout Detection",
+    "description": "Select which keyboard layouts zxcvbn should consider when detecting spatial walk patterns (e.g. 'qwerty', 'asdfgh', 'йцукен') in the password you type above.",
+    "analysisOnlyNote": "This setting affects password ANALYSIS only — it detects keyboard patterns in the text typed in the input field above. It has no effect on the password generator below, which produces cryptographically random output regardless of layout."
+  },
+  "moore": {
+    "title": "Hardware Projection (Moore's Law)",
+    "description": "How crack time evolves as hardware improves. Assumes hashrate doubles every 2 years (conservative GPU benchmark trend).",
+    "yearLabel": "Year",
+    "rateLabel": "Hashrate",
+    "crackTimeLabel": "Crack time",
+    "costLabel": "Cost",
+    "now": "Today",
+    "inYears": "in {{n}} yrs",
+    "summary": {
+      "crackableIn1Hour": "⚠ Crackable in under 1 hour in {{years}} years",
+      "crackableIn1Minute": "⚠ Crackable in under 1 minute in {{years}} years"
+    },
+    "footnote": "ⓘ Illustrative model only — not a forecast. Assumes fast-hash scenario, cost per hour unchanged."
+  },
+  "ruleSim": {
+    "title": "Rule-Based Attack Simulator",
+    "description": "Checks whether the password can be derived from a common word by applying Hashcat mutation rules (capitalize, leet-speak, append digits, etc.). A match means an attacker using this ruleset would find it.",
+    "rulesetLabel": "Ruleset",
+    "rulesetAriaLabel": "Select mutation ruleset",
+    "idle": "Enter a password to run the simulation",
+    "running": "Searching…",
+    "notFound": "Not found — password not derivable from common words with these rules",
+    "found": "⚠ Match found — password derivable from a common word",
+    "baseWord": "Base word",
+    "ruleApplied": "Rule",
+    "attemptIndex": "Attempt #",
+    "explanation": "An attacker using this ruleset and wordlist would reach this password at the attempt shown above.",
+    "error": "Simulation error. Check browser console for details."
   },
   "analysisContext": {
     "title": "Local analysis context",

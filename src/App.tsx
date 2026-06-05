@@ -5,8 +5,12 @@ import { LanguageSwitcher } from './components/LanguageSwitcher'
 import { PasswordInputCard } from './components/PasswordInputCard'
 import { EntropyCard } from './components/EntropyCard'
 import { CrackTimeCard } from './components/CrackTimeCard'
+import { MooreProjectionCard } from './components/MooreProjectionCard'
+import { RuleBasedSimulatorCard } from './components/RuleBasedSimulatorCard'
 import { FeedbackCard } from './components/FeedbackCard'
 import { HibpCard } from './components/HibpCard'
+import { GeneratorCard } from './components/GeneratorCard'
+import { KeyboardLayoutsCard } from './components/KeyboardLayoutsCard'
 import {
   ATTACK_SCENARIOS,
   DEFAULT_HARDWARE_PROFILE_ID,
@@ -16,7 +20,9 @@ import {
 import { useFeedbackItems } from './hooks/useFeedbackItems'
 import { useHardwareProfiles } from './hooks/useHardwareProfiles'
 import { useHibpCheck } from './hooks/useHibpCheck'
+import { useKeyboardLayouts } from './hooks/useKeyboardLayouts'
 import { usePasswordAnalysis } from './hooks/usePasswordAnalysis'
+import { useRuleBasedSimulator } from './hooks/useRuleBasedSimulator'
 import { useZxcvbnLanguage } from './hooks/useZxcvbnLanguage'
 import { normalizeLanguage, type AppLanguage } from './i18n'
 import type { HardwareProfile } from './types/security'
@@ -42,6 +48,7 @@ function App() {
   const { profiles: hardwareProfiles, source: hardwareSource, error: hardwareError } = useHardwareProfiles()
   const [selectedHardwareProfile, setSelectedHardwareProfile] = useState(DEFAULT_HARDWARE_PROFILE_ID)
   const [rateOverrides, setRateOverrides] = useState<Record<string, number>>({})
+  const [rulesetId, setRulesetId] = useState('best64')
 
   const currentLanguage = normalizeLanguage(i18n.resolvedLanguage ?? i18n.language)
   const locale = LOCALE_BY_LANGUAGE[currentLanguage]
@@ -56,12 +63,27 @@ function App() {
     return exists ? selectedHardwareProfile : (hardwareProfiles[0]?.id ?? DEFAULT_HARDWARE_PROFILE_ID)
   }, [hardwareProfiles, selectedHardwareProfile])
 
+  const simResult = useRuleBasedSimulator({ password, rulesetId })
+
+  const selectedProfileObject = useMemo(
+    () => hardwareProfiles.find(p => p.id === resolvedHardwareProfile),
+    [hardwareProfiles, resolvedHardwareProfile],
+  )
+
   const scenarioRates = useMemo(() => {
     const baseRates = getDefaultRates(hardwareProfiles, resolvedHardwareProfile)
     return { ...baseRates, ...rateOverrides }
   }, [hardwareProfiles, resolvedHardwareProfile, rateOverrides])
 
+  // ORDERING IS LOAD-BEARING: React runs useEffect calls in hook declaration order.
+  // useZxcvbnLanguage (dictionary+translations) → useKeyboardLayouts (graphs) →
+  // usePasswordAnalysis (calls zxcvbn) — all three must remain in this order.
+  // Reordering these hooks or moving usePasswordAnalysis into a child component
+  // would break the zxcvbnOptions sequencing silently.
   useZxcvbnLanguage(currentLanguage)
+
+  const { availableLayouts, selectedIds: selectedLayoutIds, toggleLayout, layoutsVersion } =
+    useKeyboardLayouts()
 
   const {
     analysisData,
@@ -70,7 +92,7 @@ function App() {
     entropyTheoretical,
     entropyEffective,
     entropyConservative,
-  } = usePasswordAnalysis({ password, userInputs: contextWords })
+  } = usePasswordAnalysis({ password, userInputs: contextWords, language: currentLanguage, layoutsVersion })
 
   const {
     hibpBtnDisabled,
@@ -113,6 +135,11 @@ function App() {
       ...prev,
       [scenarioId]: Number.isFinite(rate) && rate > 0 ? Math.round(rate) : 1,
     }))
+  }
+
+  function handleUseInAnalyzer(generated: string) {
+    setPassword(generated)
+    resetByPassword(generated)
   }
 
   function handleHardwareProfileChange(profileId: string) {
@@ -203,6 +230,21 @@ function App() {
         onRateChange={handleScenarioRateChange}
       />
 
+      <MooreProjectionCard
+        hasData={hasAnalysis}
+        language={currentLanguage}
+        guesses={guesses}
+        selectedProfile={selectedProfileObject}
+        t={t}
+      />
+
+      <RuleBasedSimulatorCard
+        result={simResult}
+        rulesetId={rulesetId}
+        onRulesetChange={setRulesetId}
+        t={t}
+      />
+
       <FeedbackCard
         title={t('feedback.title')}
         hasData={hasAnalysis}
@@ -224,6 +266,15 @@ function App() {
           void runCheck()
         }}
       />
+
+      <KeyboardLayoutsCard
+        availableLayouts={availableLayouts}
+        selectedIds={selectedLayoutIds}
+        onToggle={toggleLayout}
+        t={t}
+      />
+
+      <GeneratorCard t={t} onUseInAnalyzer={handleUseInAnalyzer} />
 
       <footer>
         <div>

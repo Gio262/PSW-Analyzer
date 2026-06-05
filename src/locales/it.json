@@ -47,9 +47,9 @@
     "title": "Tempo di crack stimato",
     "scenarioLabel": "Scenario",
     "estimatedTimeLabel": "Tempo stimato",
-    "average": "medio",
-    "max": "max",
-    "note": "ⓘ Stima basata su {{guesses}} guess di zxcvbn. \"Medio\" assume successo a metà spazio di ricerca; \"max\" assume esplorazione completa. Gli scenari sono indicativi, non universali.",
+    "economicCostLabel": "Costo attacco",
+    "costHint": "stima cloud on-demand",
+    "note": "ⓘ Formula: tempo_crack = guess ÷ guess/sec. Basata su {{guesses}} guess (stima zxcvbn dei tentativi attesi per un attaccante ottimale). Gli scenari sono indicativi.",
     "rateHint": "Puoi modificare i guess/sec per adattare lo scenario al tuo contesto.",
     "rateLabel": "Velocità",
     "rateInputAria": "Velocità di tentativi per {{scenario}}",
@@ -128,6 +128,65 @@
     "2": "Discreta",
     "3": "Buona",
     "4": "Ottima"
+  },
+  "generator": {
+    "title": "Generatore di password",
+    "description": "Generatore basato su CSPRNG con rejection sampling (NIST SP 800-90A). L'entropia è calcolata analiticamente, non stimata.",
+    "modePassword": "Password",
+    "modePasswordDesc": "Genera una sequenza casuale di caratteri dalle classi selezionate. Entropia = lunghezza × log₂(dimensione pool).",
+    "modePassphrase": "Passphrase",
+    "modePassphraseDesc": "Genera una sequenza di parole casuali da un dizionario Diceware. Più memorabile di una password a caratteri casuali per entropia equivalente.",
+    "length": "Lunghezza",
+    "excludeAmbiguous": "Escludi caratteri ambigui (0/O/1/l/I…)",
+    "ensureAllClasses": "Garantisci tutti i tipi di carattere selezionati",
+    "wordCount": "Numero di parole",
+    "wordlist": "Lista parole",
+    "wordlistDesc": {
+      "effLong": "Lista EFF lunga · 7776 parole · 12,9 bit/parola · Miglior bilanciamento tra memorabilità ed entropia. Consigliata per la maggior parte degli usi.",
+      "effShort1": "Lista EFF corta v1 · 1296 parole · 10,3 bit/parola · Parole più semplici e brevi — usa 9+ parole per ottenere la stessa entropia di 7 parole EFF lunga.",
+      "reinhold": "Reinhold classica (1995) · 7776 parole · 12,9 bit/parola · La lista Diceware originale. Stessa entropia della lista EFF lunga."
+    },
+    "separator": "Separatore",
+    "capitalize": "Prima lettera maiuscola per ogni parola",
+    "generate": "Genera",
+    "entropy": "Entropia",
+    "poolLabel": "dimensione pool",
+    "useInAnalyzer": "Usa nell'analizzatore"
+  },
+  "keyboardLayouts": {
+    "title": "Rilevamento layout di tastiera",
+    "description": "Seleziona quali layout di tastiera zxcvbn deve considerare per rilevare i pattern di camminata sulla tastiera (es. 'qwerty', 'asdfgh', 'йцукен') nella password digitata sopra.",
+    "analysisOnlyNote": "Questa impostazione riguarda solo l'ANALISI della password — rileva pattern di tastiera nel testo inserito nel campo in alto. Non ha alcun effetto sul generatore di password sotto, che produce output crittograficamente casuale indipendentemente dal layout."
+  },
+  "moore": {
+    "title": "Proiezione hardware (Legge di Moore)",
+    "description": "Come cambia il tempo di crack all'aumentare della potenza hardware. Ipotizza un raddoppio dell'hashrate ogni 2 anni (trend conservativo per GPU).",
+    "yearLabel": "Anno",
+    "rateLabel": "Hashrate",
+    "crackTimeLabel": "Tempo di crack",
+    "costLabel": "Costo",
+    "now": "Oggi",
+    "inYears": "tra {{n}} anni",
+    "summary": {
+      "crackableIn1Hour": "⚠ Crackabile in meno di 1 ora tra {{years}} anni",
+      "crackableIn1Minute": "⚠ Crackabile in meno di 1 minuto tra {{years}} anni"
+    },
+    "footnote": "ⓘ Modello illustrativo, non una previsione. Ipotizza scenario fast-hash, costo/ora invariato."
+  },
+  "ruleSim": {
+    "title": "Simulatore di attacco rule-based",
+    "description": "Verifica se la password può essere derivata da una parola comune applicando regole di mutazione Hashcat (capitalize, leet-speak, cifre appese, ecc.). Un match significa che un attaccante con questo ruleset la troverebbe.",
+    "rulesetLabel": "Ruleset",
+    "rulesetAriaLabel": "Seleziona ruleset di mutazione",
+    "idle": "Inserisci una password per avviare la simulazione",
+    "running": "Ricerca in corso…",
+    "notFound": "Non trovata — la password non è derivabile da parole comuni con queste regole",
+    "found": "⚠ Match trovato — la password è derivabile da una parola comune",
+    "baseWord": "Parola base",
+    "ruleApplied": "Regola",
+    "attemptIndex": "Tentativo #",
+    "explanation": "Un attaccante con questo ruleset e wordlist raggiungerebbe questa password al tentativo indicato.",
+    "error": "Errore nella simulazione. Controlla la console del browser."
   },
   "analysisContext": {
     "title": "Contesto locale per analisi",

@@ -2,6 +2,7 @@ import { ATTACK_SCENARIOS } from '../constants/security'
 import type { AppLanguage } from '../i18n'
 import type { HardwareProfile } from '../types/security'
 import { fmtGuesses, formatTime, timeClass } from '../utils/passwordAnalysis'
+import { costClass, estimateAttackCost, formatCost } from '../utils/economicAttackCost'
 
 interface CrackTimeCardProps {
   hasData: boolean
@@ -80,14 +81,21 @@ export function CrackTimeCard({
               <tr>
                 <th>{t('crack.scenarioLabel')}</th>
                 <th style={{ textAlign: 'right' }}>{t('crack.estimatedTimeLabel')}</th>
+                <th style={{ textAlign: 'right' }}>{t('crack.economicCostLabel')}</th>
               </tr>
             </thead>
             <tbody>
               {ATTACK_SCENARIOS.map((scenario) => {
                 const rate = Math.max(1, rates[scenario.id] ?? scenario.rate)
-                const avgSecs = guesses / 2 / rate
-                const maxSecs = guesses / rate
-                const tc = timeClass(avgSecs)
+                const crackSecs = guesses / rate
+                const tc = timeClass(crackSecs)
+                const costEstimate = estimateAttackCost(
+                  guesses,
+                  rate,
+                  selectedProfile?.costPerHour?.[scenario.id],
+                  selectedProfile?.costCurrency ?? 'USD',
+                )
+                const cc = costClass(costEstimate)
 
                 return (
                   <tr key={scenario.id}>
@@ -109,10 +117,15 @@ export function CrackTimeCard({
                       </div>
                     </td>
                     <td className={`crack-time${tc ? ` ${tc}` : ''}`}>
-                      <div>{t('crack.average')}: {formatTime(avgSecs, language)}</div>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)', marginTop: '0.15rem' }}>
-                        {t('crack.max')}: {formatTime(maxSecs, language)}
-                      </div>
+                      <div>{formatTime(crackSecs, language)}</div>
+                    </td>
+                    <td className={`crack-cost${cc ? ` ${cc}` : ''}`}>
+                      <div>{formatCost(costEstimate)}</div>
+                      {costEstimate.applicable && (
+                        <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)', marginTop: '0.15rem' }}>
+                          {t('crack.costHint')}
+                        </div>
+                      )}
                     </td>
                   </tr>
                 )

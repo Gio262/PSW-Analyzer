@@ -27,6 +27,13 @@ export interface HardwareProfile {
   labelKey: string
   descriptionKey: string
   rates: Record<AttackScenarioId, number>
+  /**
+   * Hourly cost (in costCurrency) to run this hardware for each scenario.
+   * Absent for online_throttled (no dedicated hardware cost applies).
+   */
+  costPerHour?: Partial<Record<AttackScenarioId, number>>
+  /** Currency used for costPerHour. Defaults to 'USD'. */
+  costCurrency?: 'USD' | 'EUR'
 }
 
 export type HibpStatus = 'idle' | 'reset' | 'checking' | 'safe' | 'found' | 'error'
