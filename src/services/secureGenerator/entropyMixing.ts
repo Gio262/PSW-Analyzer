@@ -1,5 +1,11 @@
 import { randomBytes } from './csprng'
 
+function copyToArrayBufferView(bytes: Uint8Array): Uint8Array<ArrayBuffer> {
+  const copy = new Uint8Array(bytes.byteLength)
+  copy.set(bytes)
+  return copy
+}
+
 /**
  * Mixes entropy from N sources using HKDF (RFC 5869) with SHA-256.
  *
@@ -26,7 +32,9 @@ export async function mixEntropy(
     offset += s.length
   }
 
-  const effectiveSalt = salt ?? new Uint8Array(32)
+  const effectiveSalt: Uint8Array<ArrayBuffer> = salt
+    ? copyToArrayBufferView(salt)
+    : new Uint8Array(32)
   const infoBytes = new TextEncoder().encode(info ?? 'psw-analyzer-entropy-mix-v1')
 
   // HKDF-Extract: PRK = HMAC-SHA256(salt, IKM)

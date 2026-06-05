@@ -6,9 +6,12 @@ import { adjacencyGraphs, dictionary as dictCommon } from '@zxcvbn-ts/language-c
 import { dictionary as dictEn, translations as translationsEn } from '@zxcvbn-ts/language-en'
 import { dictionary as dictIt, translations as translationsIt } from '@zxcvbn-ts/language-it'
 import { usePasswordAnalysis } from './usePasswordAnalysis'
+import type { AppLanguage } from '../i18n'
+
+type LanguageHookProps = { lang: AppLanguage }
 
 // Replicates what useZxcvbnLanguage does, but synchronously in test setup.
-function configureZxcvbn(lang: 'it' | 'en') {
+function configureZxcvbn(lang: AppLanguage) {
   const langConfig = lang === 'it'
     ? { dictionary: dictIt, translations: translationsIt }
     : { dictionary: dictEn, translations: translationsEn }
@@ -60,11 +63,12 @@ describe('usePasswordAnalysis — language dependency', () => {
     // low guesses). In English it is treated as a generic 8-char lowercase string
     // (no match → significantly higher guesses).
     configureZxcvbn('it')
+    const initialProps: LanguageHookProps = { lang: 'it' }
 
     const { result, rerender } = renderHook(
-      ({ lang }: { lang: 'it' | 'en' }) =>
+      ({ lang }: LanguageHookProps) =>
         usePasswordAnalysis({ password: 'ombrello', language: lang }),
-      { initialProps: { lang: 'it' as const } },
+      { initialProps },
     )
 
     await waitForDebounce()
@@ -86,11 +90,12 @@ describe('usePasswordAnalysis — language dependency', () => {
     // A strong random password has no dictionary matches in any language;
     // swapping dictionaries should not meaningfully change the estimate.
     configureZxcvbn('it')
+    const initialProps: LanguageHookProps = { lang: 'it' }
 
     const { result, rerender } = renderHook(
-      ({ lang }: { lang: 'it' | 'en' }) =>
+      ({ lang }: LanguageHookProps) =>
         usePasswordAnalysis({ password: 'K2$vBm9@xQr7!nLp', language: lang }),
-      { initialProps: { lang: 'it' as const } },
+      { initialProps },
     )
 
     await waitForDebounce()
