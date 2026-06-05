@@ -37,9 +37,18 @@ export function usePasswordAnalysis({ password, userInputs = [], language, layou
 
   return useMemo(() => {
     const score = Math.max(0, Math.min(analysisData?.result.score ?? 0, 4))
+
+    // zxcvbn.guesses = estimated attempts for an optimal attacker (NOT half the space).
+    // Clamped to ≥1 so log₂ never goes negative.
     const guesses = analysisData ? Math.max(1, analysisData.result.guesses) : 1
+
+    // Theoretical entropy: H_t = length × log₂(charsetSize) — upper bound assuming uniform random draw.
     const entropyTheoretical = analysisData?.charsetInfo.entropy ?? 0
+
+    // Effective entropy: H_e = log₂(guesses) — reflects real-world patterns zxcvbn detected.
     const entropyEffective = Math.log2(guesses)
+
+    // Conservative entropy: safer estimate — min(theoretical, effective), lower = more conservative.
     const entropyConservative = Math.min(entropyTheoretical, entropyEffective)
 
     return {

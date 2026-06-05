@@ -49,7 +49,7 @@
     "estimatedTimeLabel": "Estimated time",
     "economicCostLabel": "Attack cost",
     "costHint": "on-demand cloud estimate",
-    "note": "ⓘ Estimate based on {{guesses}} zxcvbn guesses (expected attempts for an optimal attacker). These scenarios are indicative, not universal.",
+    "note": "ⓘ Formula: crack_time = guesses ÷ guesses/sec. Based on {{guesses}} guesses (zxcvbn estimate of expected attempts for an optimal attacker). Scenarios are indicative.",
     "rateHint": "You can edit guesses/sec to better match your real attack scenario.",
     "rateLabel": "Rate",
     "rateInputAria": "Guess rate for {{scenario}}",
