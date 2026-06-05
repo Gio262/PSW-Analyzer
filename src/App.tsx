@@ -6,6 +6,7 @@ import { PasswordInputCard } from './components/PasswordInputCard'
 import { EntropyCard } from './components/EntropyCard'
 import { CrackTimeCard } from './components/CrackTimeCard'
 import { MooreProjectionCard } from './components/MooreProjectionCard'
+import { RuleBasedSimulatorCard } from './components/RuleBasedSimulatorCard'
 import { FeedbackCard } from './components/FeedbackCard'
 import { HibpCard } from './components/HibpCard'
 import { GeneratorCard } from './components/GeneratorCard'
@@ -21,6 +22,7 @@ import { useHardwareProfiles } from './hooks/useHardwareProfiles'
 import { useHibpCheck } from './hooks/useHibpCheck'
 import { useKeyboardLayouts } from './hooks/useKeyboardLayouts'
 import { usePasswordAnalysis } from './hooks/usePasswordAnalysis'
+import { useRuleBasedSimulator } from './hooks/useRuleBasedSimulator'
 import { useZxcvbnLanguage } from './hooks/useZxcvbnLanguage'
 import { normalizeLanguage, type AppLanguage } from './i18n'
 import type { HardwareProfile } from './types/security'
@@ -46,6 +48,7 @@ function App() {
   const { profiles: hardwareProfiles, source: hardwareSource, error: hardwareError } = useHardwareProfiles()
   const [selectedHardwareProfile, setSelectedHardwareProfile] = useState(DEFAULT_HARDWARE_PROFILE_ID)
   const [rateOverrides, setRateOverrides] = useState<Record<string, number>>({})
+  const [rulesetId, setRulesetId] = useState('best64')
 
   const currentLanguage = normalizeLanguage(i18n.resolvedLanguage ?? i18n.language)
   const locale = LOCALE_BY_LANGUAGE[currentLanguage]
@@ -59,6 +62,8 @@ function App() {
     const exists = hardwareProfiles.some((profile) => profile.id === selectedHardwareProfile)
     return exists ? selectedHardwareProfile : (hardwareProfiles[0]?.id ?? DEFAULT_HARDWARE_PROFILE_ID)
   }, [hardwareProfiles, selectedHardwareProfile])
+
+  const simResult = useRuleBasedSimulator({ password, rulesetId })
 
   const selectedProfileObject = useMemo(
     () => hardwareProfiles.find(p => p.id === resolvedHardwareProfile),
@@ -230,6 +235,13 @@ function App() {
         language={currentLanguage}
         guesses={guesses}
         selectedProfile={selectedProfileObject}
+        t={t}
+      />
+
+      <RuleBasedSimulatorCard
+        result={simResult}
+        rulesetId={rulesetId}
+        onRulesetChange={setRulesetId}
         t={t}
       />
 

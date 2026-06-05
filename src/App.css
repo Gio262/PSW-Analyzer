@@ -402,6 +402,43 @@ header p {
 .feedback-list li.ok { color: var(--green); }
 .feedback-list li.ok::before { color: var(--green); content: '✓'; }
 
+.rule-sim-output {
+  margin-top: 0.4rem;
+  min-height: 2rem;
+}
+
+.rule-sim-result {
+  padding: 0.6rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.rule-sim-result--safe {
+  color: var(--green);
+  border-left: 3px solid var(--green);
+  background: #39ff7a10;
+}
+
+.rule-sim-result--danger {
+  color: var(--red);
+  border-left: 3px solid var(--red);
+  background: #ff4d6d10;
+}
+
+.rule-sim-result--error {
+  color: var(--amber);
+  border-left: 3px solid var(--amber);
+}
+
+.rule-sim-rule {
+  font-family: var(--mono);
+  font-size: 0.82em;
+  background: #ffffff10;
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+}
+
 .charset-row {
   display: flex;
   gap: 0.5rem;

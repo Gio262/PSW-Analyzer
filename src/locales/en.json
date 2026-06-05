@@ -165,6 +165,21 @@
     },
     "footnote": "ⓘ Illustrative model only — not a forecast. Assumes fast-hash scenario, cost per hour unchanged."
   },
+  "ruleSim": {
+    "title": "Rule-Based Attack Simulator",
+    "description": "Checks whether the password can be derived from a common word by applying Hashcat mutation rules (capitalize, leet-speak, append digits, etc.). A match means an attacker using this ruleset would find it.",
+    "rulesetLabel": "Ruleset",
+    "rulesetAriaLabel": "Select mutation ruleset",
+    "idle": "Enter a password to run the simulation",
+    "running": "Searching…",
+    "notFound": "Not found — password not derivable from common words with these rules",
+    "found": "⚠ Match found — password derivable from a common word",
+    "baseWord": "Base word",
+    "ruleApplied": "Rule",
+    "attemptIndex": "Attempt #",
+    "explanation": "An attacker using this ruleset and wordlist would reach this password at the attempt shown above.",
+    "error": "Simulation error. Check browser console for details."
+  },
   "analysisContext": {
     "title": "Local analysis context",
     "description": "Words related to you (name, company, product, slang) make estimates more realistic.",

@@ -165,6 +165,21 @@
     },
     "footnote": "ⓘ Modello illustrativo, non una previsione. Ipotizza scenario fast-hash, costo/ora invariato."
   },
+  "ruleSim": {
+    "title": "Simulatore di attacco rule-based",
+    "description": "Verifica se la password può essere derivata da una parola comune applicando regole di mutazione Hashcat (capitalize, leet-speak, cifre appese, ecc.). Un match significa che un attaccante con questo ruleset la troverebbe.",
+    "rulesetLabel": "Ruleset",
+    "rulesetAriaLabel": "Seleziona ruleset di mutazione",
+    "idle": "Inserisci una password per avviare la simulazione",
+    "running": "Ricerca in corso…",
+    "notFound": "Non trovata — la password non è derivabile da parole comuni con queste regole",
+    "found": "⚠ Match trovato — la password è derivabile da una parola comune",
+    "baseWord": "Parola base",
+    "ruleApplied": "Regola",
+    "attemptIndex": "Tentativo #",
+    "explanation": "Un attaccante con questo ruleset e wordlist raggiungerebbe questa password al tentativo indicato.",
+    "error": "Errore nella simulazione. Controlla la console del browser."
+  },
   "analysisContext": {
     "title": "Contesto locale per analisi",
     "description": "Parole legate a te (nome, azienda, prodotto, slang) rendono la stima più realistica.",
